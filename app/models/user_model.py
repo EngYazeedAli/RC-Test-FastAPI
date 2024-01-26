@@ -34,3 +34,6 @@ class UserModel(BaseModel):
 class UserLogin(BaseModel):
     email: str
     password: str
+
+class TokenModel(BaseModel):
+    token: str

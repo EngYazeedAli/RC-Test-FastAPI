@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Depends, Body
-from app.models.user_model import UserModel, UserLogin
+from app.models.user_model import UserModel, UserLogin, TokenModel
 from app.services import user_services as service
 from app.api.authentication import authenticate_user, validate_token
 
@@ -138,8 +138,8 @@ async def login_endpoint(user: UserLogin):
     
 #Validate Token API
 @user_router.post("/validate-token")
-async def validate_token_endpoint(token: str = Body(...)):
+async def validate_token_endpoint(token: dict = TokenModel):
 
-    token_auth = validate_token(token)
+    token_auth = validate_token(token["token"])
     return ({"role": token_auth["role"], "user_id": token_auth["user_id"]})
 #___________________________________________________________________________________________________________________
