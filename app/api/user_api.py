@@ -135,3 +135,9 @@ async def login_endpoint(user: UserLogin):
     except Exception as error:
         raise HTTPException(status_code = 500, detail = str(error))
 #___________________________________________________________________________________________________________________
+    
+#Validate Token API
+@user_router.post("/validate-token")
+async def validate_token_endpoint(token_auth: dict = Depends(authenticate_user)):
+    return ({"role": token_auth["role"], "user_id": token_auth["user_id"]})
+#___________________________________________________________________________________________________________________
