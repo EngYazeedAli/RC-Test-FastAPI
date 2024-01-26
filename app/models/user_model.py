@@ -32,10 +32,10 @@ class UserModel(BaseModel):
         }
 
 class UpdateUserModel(BaseModel):
-    first_name: Optional[str]
-    last_name: Optional[str]
-    email: Optional[str]
-    password: Optional[str]
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    email: Optional[str] = None
+    password: Optional[str] = None
     
 class UserLogin(BaseModel):
     email: str
