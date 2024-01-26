@@ -138,8 +138,9 @@ async def login_endpoint(user: UserLogin):
     
 #Validate Token API
 @user_router.post("/validate-token")
-async def validate_token_endpoint(token: dict = TokenModel):
+async def validate_token_endpoint(token: TokenModel):
 
-    token_auth = validate_token(token["token"])
+
+    token_auth = validate_token(token.model_dump()["token"])
     return ({"role": token_auth["role"], "user_id": token_auth["user_id"]})
 #___________________________________________________________________________________________________________________
