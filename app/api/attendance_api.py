@@ -20,7 +20,7 @@ async def create_attendance_record_endpoint(user_id: str, attendance: Attendance
         return created_record
 
     except ValueError as error:
-        raise HTTPException(status_code = 400, detail = str(error))
+        raise HTTPException(status_code = 404, detail = str(error))
 
     except Exception as error:
         raise HTTPException(status_code = 500, detail = str(error))
@@ -39,7 +39,7 @@ async def check_in_endpoint(user_id: str , reason: LateReason, user_auth: bool =
         return check_in
 
     except ValueError as error:
-        raise HTTPException(status_code = 400, detail = str(error))
+        raise HTTPException(status_code = 404, detail = str(error))
 
     except Exception as error:
         raise HTTPException(status_code = 500, detail = str(error))
@@ -58,7 +58,7 @@ async def check_out_endpoint(user_id: str , reason: LeaveReason, user_auth: bool
         return check_out
 
     except ValueError as error:
-        raise HTTPException(status_code = 400, detail = str(error))
+        raise HTTPException(status_code = 404, detail = str(error))
 
     except Exception as error:
         raise HTTPException(status_code = 500, detail = str(error))
@@ -77,7 +77,7 @@ async def get_all_user_attendance_records_endpoint(user_id: str,  user_auth: boo
         return all_records
 
     except ValueError as error:
-        raise HTTPException(status_code = 400, detail = str(error))
+        raise HTTPException(status_code = 404, detail = str(error))
 
     except Exception as error:
         raise HTTPException(status_code = 500, detail = str(error))

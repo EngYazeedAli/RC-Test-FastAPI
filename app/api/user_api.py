@@ -20,7 +20,7 @@ async def create_user_endpoint(user: UserModel, admin_auth: dict = Depends(authe
         return created_user
 
     except ValueError as error:
-        raise HTTPException(status_code = 400, detail = str(error))
+        raise HTTPException(status_code = 404, detail = str(error))
 
     except Exception as error:
         raise HTTPException(status_code = 500, detail = str(error))
@@ -39,7 +39,7 @@ async def get_user_endpoint(user_id: str, admin_auth: dict = Depends(authenticat
         return  existed_user
 
     except ValueError as error:
-        raise HTTPException(status_code = 400, detail = str(error))
+        raise HTTPException(status_code = 404, detail = str(error))
 
     except Exception as error:
         raise HTTPException(status_code = 500, detail = str(error))
@@ -58,7 +58,7 @@ async def get_user_endpoint(user_id: str, user_auth: dict = Depends(authenticate
         return  existed_user
 
     except ValueError as error:
-        raise HTTPException(status_code = 400, detail = str(error))
+        raise HTTPException(status_code = 404, detail = str(error))
 
     except Exception as error:
         raise HTTPException(status_code = 500, detail = str(error))
@@ -96,7 +96,7 @@ async def update_user_endpoint(user: UserModel , user_id: str, admin_auth: dict 
         return updated_user
 
     except ValueError as error:
-        raise HTTPException(status_code = 400, detail = str(error))
+        raise HTTPException(status_code = 404, detail = str(error))
 
     except Exception as error:
         raise HTTPException(status_code = 500, detail = str(error))
@@ -115,7 +115,7 @@ async def delete_user_endpoint(user_id: str, admin_auth: dict = Depends(authenti
         return deleted_user
 
     except ValueError as error:
-        raise HTTPException(status_code = 400, detail = str(error))
+        raise HTTPException(status_code = 404, detail = str(error))
 
     except Exception as error:
         raise HTTPException(status_code = 500, detail = str(error))
@@ -130,7 +130,7 @@ async def login_endpoint(user: UserLogin):
         return existed_user
 
     except ValueError as error:
-        raise HTTPException(status_code = 400, detail = str(error))
+        raise HTTPException(status_code = 404, detail = str(error))
 
     except Exception as error:
         raise HTTPException(status_code = 500, detail = str(error))
