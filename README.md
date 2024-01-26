@@ -79,6 +79,6 @@ For a complete list, check the `requirements.txt` file.
 
 ## Permission
 
-To access and test the project, please use the following admin log-in details: 
-- Username: admin@system.com
-- Password: admin@0548
+To access and test the project, please use the following admin log-in details:
+- Username: admin@system.com.
+- Password: admin@0548.
