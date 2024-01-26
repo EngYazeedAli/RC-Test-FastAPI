@@ -23,7 +23,7 @@ async def create_attendance_record(user_id , attendance):
         }
 
         collection.insert_one(attendance_data)
-        return attendance
+        return ({"existed_record": False, "attendance_record": attendance})
 
 
     except Exception as error:
