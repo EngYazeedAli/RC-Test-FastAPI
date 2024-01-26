@@ -21,7 +21,7 @@ which contains the basic functionality of any project such as creating, updating
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/fastapi-project.git
+   git clone [https://github.com/your-username/fastapi-project.git](https://github.com/EngYazeedAli/fastapi_royal_test.git)
    ```
 
 2. Navigate to the project directory:
@@ -50,37 +50,11 @@ which contains the basic functionality of any project such as creating, updating
 
 3. Explore and interact with the API using the provided endpoints.
 
-## Project Structure
-
-The project structure is organized as follows:
-
-```
-fastapi-project/
-│
-├── app/
-│   ├── __init__.py
-│   ├── main.py
-│   ├── routers/
-│   │   └── __init__.py
-│   │   └── example.py
-│   └── models/
-│       └── __init__.py
-│       └── example.py
-│
-├── tests/
-│   └── __init__.py
-│   └── test_main.py
-│
-├── .gitignore
-├── requirements.txt
-├── README.md
-└── main.py
-```
-
 - `app/main.py`: FastAPI application creation and main endpoint routing.
-- `app/routers/`: Directory for endpoint routers.
+- `app/api/`: Directory for endpoint routers.
+-  `services/`: Directory for business logic services.
 - `app/models/`: Directory for Pydantic models.
-- `tests/`: Directory for tests.
+- `config/`: Directory for configuration files.
 - `requirements.txt`: Project dependencies.
 
 ## Configuration
@@ -99,14 +73,3 @@ List of major dependencies used in this project:
 - [Uvicorn](https://www.uvicorn.org/)
 
 For a complete list, check the `requirements.txt` file.
-
-## Contributing
-
-Contributions are welcome! If you find a bug or have a feature request, please open an issue. Feel free to submit pull requests with improvements.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-```
-
-Make sure to replace placeholder content with information specific to your project. Additionally, update the table of contents, sections, and details based on your project's structure and requirements.
