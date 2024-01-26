@@ -84,7 +84,7 @@ async def get_all_user_endpoint(admin_auth: dict = Depends(authenticate_user)):
 #___________________________________________________________________________________________________________________
 
 #Update a User by ID API
-@user_router.put("/users/{user_id}")
+@user_router.put("/user/{user_id}")
 async def update_user_endpoint(user: UserModel , user_id: str, admin_auth: dict = Depends(authenticate_user)):
 
     try:
