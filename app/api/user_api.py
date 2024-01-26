@@ -66,18 +66,18 @@ async def get_user_endpoint(user_id: str, user_auth: dict = Depends(authenticate
 
 #Get All Users API
 @user_router.get("/users")
-async def get_all_user_endpoint(admin_auth: dict = Depends(authenticate_user)):
+async def get_all_users_endpoint(admin_auth: dict = Depends(authenticate_user)):
 
     try:
 
         if admin_auth["role"] != "admin":
             raise HTTPException(status_code = 401, detail = "Unauthorized")
         
-        all_users = await service.get_users_service()
+        all_users = await service.get_all_users_service()
         return all_users
 
     except ValueError as error:
-        raise HTTPException(status_code = 400, detail = str(error))
+        raise HTTPException(status_code = 404, detail = str(error))
 
     except Exception as error:
         raise HTTPException(status_code = 500, detail = str(error))

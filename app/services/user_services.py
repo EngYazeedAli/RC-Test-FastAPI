@@ -52,12 +52,12 @@ async def get_user_service(user_id):
 #___________________________________________________________________________________________________________________
     
 #Get All Users Service
-async def get_users_service():
+async def get_all_users_service():
 
     try:
 
         all_users = []
-        existed_users = collection.find({"role": "user", "delete": False})
+        existed_users = collection.find({"role": "user", "deleted": False})
 
         for user in existed_users:
             user["_id"] = str(user["_id"])
