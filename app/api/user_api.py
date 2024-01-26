@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Depends, Body
-from app.models.user_model import UserModel, UserLogin, TokenModel
+from app.models.user_model import UserModel, UserLogin, TokenModel, UpdateUserModel
 from app.services import user_services as service
 from app.api.authentication import authenticate_user, validate_token
 
@@ -85,7 +85,7 @@ async def get_all_users_endpoint(admin_auth: dict = Depends(authenticate_user)):
 
 #Update a User by ID API
 @user_router.put("/user/{user_id}")
-async def update_user_endpoint(user: UserModel , user_id: str, admin_auth: dict = Depends(authenticate_user)):
+async def update_user_endpoint(user: UpdateUserModel, user_id: str, admin_auth: dict = Depends(authenticate_user)):
 
     try:
 

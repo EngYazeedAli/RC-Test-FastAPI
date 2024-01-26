@@ -1,6 +1,6 @@
 from pydantic import BaseModel, validator
+from typing import Optional
 import bcrypt
-from bson import ObjectId
 salt_rounds = 12
 
 class UserModel(BaseModel):
@@ -31,6 +31,12 @@ class UserModel(BaseModel):
             }
         }
 
+class UpdateUserModel(BaseModel):
+    first_name: Optional[str]
+    last_name: Optional[str]
+    email: Optional[str]
+    password: Optional[str]
+    
 class UserLogin(BaseModel):
     email: str
     password: str
