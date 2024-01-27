@@ -77,7 +77,7 @@ async def get_all_user_attendance_records_endpoint(user_id: str,  user_auth: boo
         return all_records
 
     except ValueError as error:
-        raise HTTPException(status_code = 404, detail = str(error))
+        raise HTTPException(status_code = 200, detail = str(error))
 
     except Exception as error:
         raise HTTPException(status_code = 500, detail = str(error))
