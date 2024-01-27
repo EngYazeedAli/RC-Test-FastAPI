@@ -6,7 +6,7 @@ from dateutil import parser
 #___________________________________________________________________________________________________________________
 
 #Create a New Attendance Record Service
-async def create_attendance_record(user_id , attendance):
+async def create_attendance_record(user_id):
 
     try:
 
@@ -15,16 +15,26 @@ async def create_attendance_record(user_id , attendance):
         existed_attendance_record = collection.find_one({"user_id": user_id, "attendance_date": attendance_date})
 
         if existed_attendance_record:
-            return ({"existed_record": True, "attendance_record": attendance})
+            existed_attendance_record["_id"] = str(existed_attendance_record["_id"])
+            return ({"existed_record": True, "attendance_record": existed_attendance_record})
 
-        attendance_data = {
-            **attendance,
+        attendance_record = {
+            "attendance_date": attendance_date,
+            "check_in": None,
+            "check_out": None,
+            "checked_in": False,
+            "checked_out": False,
+            "late_mark": False,
+            "leave_mark": False,
+            "late_reason": None,
+            "lave_reason": None, 
+            "attended_hours": 0.0,
             "user_id": user_id
         }
 
-        collection.insert_one(attendance_data)
-        return ({"existed_record": False, "attendance_record": attendance})
-
+        collection.insert_one(attendance_record)
+        attendance_record["_id"] = str(attendance_record["_id"])
+        return ({"existed_record": False, "attendance_record": attendance_record})
 
     except Exception as error:
         raise ValueError(str(error))

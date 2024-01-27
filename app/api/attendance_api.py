@@ -9,14 +9,14 @@ attendance_router = APIRouter()
 
 #Create a New Attendance Record API
 @attendance_router.post("/attendance-record/{user_id}")
-async def create_attendance_record_endpoint(user_id: str, attendance: AttendanceModel, user_auth: bool = Depends(authenticate_user)):
+async def create_attendance_record_endpoint(user_id: str, user_auth: bool = Depends(authenticate_user)):
 
     try:
         
         if not user_auth:
             raise HTTPException(status_code = 401, detail = "Unauthorized User")
         
-        created_record = await service.create_attendance_record(user_id, attendance.model_dump())
+        created_record = await service.create_attendance_record(user_id)
         return created_record
 
     except ValueError as error:
