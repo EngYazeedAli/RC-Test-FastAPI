@@ -13,8 +13,7 @@ which contains the basic functionality of any project such as creating, updating
 - [Configuration](#configuration)
 - [API Documentation](#api-documentation)
 - [Dependencies](#dependencies)
-- [Contributing](#contributing)
-- [License](#license)
+- [Permission](#permission)
 
 ## Installation
 
@@ -50,6 +49,9 @@ which contains the basic functionality of any project such as creating, updating
 
 3. Explore and interact with the API using the provided endpoints.
 
+
+## Project Structure
+
 - `app/main.py`: FastAPI application creation and main endpoint routing.
 - `app/api/`: Directory for endpoint routers.
 -  `services/`: Directory for business logic services.
@@ -73,3 +75,10 @@ List of major dependencies used in this project:
 - [Uvicorn](https://www.uvicorn.org/)
 
 For a complete list, check the `requirements.txt` file.
+
+
+## Permission
+
+To access and test the project, please use the following admin log-in details:
+- Username: admin@system.com.
+- Password: admin@0548.
