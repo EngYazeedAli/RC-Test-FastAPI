@@ -1,16 +1,18 @@
 from bson import ObjectId
-from datetime import datetime, timezone
+from datetime import datetime, time
 from app.config.db import attendance_collection as collection
 from dateutil import parser
+import pytz
 
+sa_timezone = pytz.timezone('Asia/Riyadh')
 #___________________________________________________________________________________________________________________
 
 #Create a New Attendance Record Service
 async def create_attendance_record(user_id):
 
     try:
-
-        attendance_date = parser.isoparse(datetime.today(timezone("Asia/Riyadh")).strftime("%Y-%m-%d"))
+        
+        attendance_date = parser.isoparse(datetime.now(sa_timezone).strftime("%Y-%m-%d"))
 
         existed_attendance_record = collection.find_one({"user_id": user_id, "attendance_date": attendance_date})
 
@@ -44,7 +46,7 @@ async def create_attendance_record(user_id):
 async def check_in_service(user_id, reason):
 
     try:
-        attendance_date = parser.isoparse(datetime.today(timezone("Asia/Riyadh")).strftime("%Y-%m-%d"))
+        attendance_date = parser.isoparse(datetime.now(sa_timezone).strftime("%Y-%m-%d"))
         attendance_record =  collection.find_one({"user_id": user_id, "attendance_date": attendance_date})
 
         if not attendance_record:
@@ -64,11 +66,9 @@ async def check_in_service(user_id, reason):
 
     #_______________________________________________________________________________
         
-        now = datetime.now(timezone("Asia/Riyadh"))
-        late_check_in = (now.hour >= 8 and now.minute >= 30) and (now.hour < 16)
-        normal_check_in = (now.hour == 7 and now.minute >= 0 and now.second >= 0) or (now.hour == 8 and now.minute <= 29 and now.second <= 59)
-
-        print(normal_check_in)
+        now = datetime.now(sa_timezone).time()
+        late_check_in = (now >= time(8, 30, 0) and now < time(16, 0, 0))
+        normal_check_in = (now >= time(7, 0, 0) and now <= time(8, 29, 59))
 
         if late_check_in:
             attendance_record["check_in"] = attendance_date.replace(hour = now.hour, minute = now.minute)
@@ -99,7 +99,7 @@ async def check_in_service(user_id, reason):
 async def check_out_service(user_id, reason):
 
     try:
-        attendance_date = parser.isoparse(datetime.today(timezone("Asia/Riyadh")).strftime("%Y-%m-%d"))
+        attendance_date = parser.isoparse(datetime.now(sa_timezone).strftime("%Y-%m-%d"))
         attendance_record =  collection.find_one({"user_id": user_id, "attendance_date": attendance_date})
 
         if not attendance_record:
@@ -122,13 +122,14 @@ async def check_out_service(user_id, reason):
     #_______________________________________________________________________________
 
 
-        now = datetime.now(timezone("Asia/Riyadh"))
-        early_check_out = (now.hour >= 7 and now.hour < 15)
-        normal_check_out = (now.hour >= 15 and now.hour <= 16 and now.minute <= 5)
+        now = datetime.now(sa_timezone).time()
+        early_check_out = (now >= time(7, 0, 1) and now < time(15, 0, 0))
+        normal_check_out = (now >= time(15, 0, 1) and now < time(16, 5, 0))
 
         # Calculate attended hours
-        check_in_time = attendance_record["check_in"]
-        attended_hours = (now - check_in_time).total_seconds() / 3600
+        now_duration = datetime.now(sa_timezone)
+        check_in_time = attendance_record["check_in"].astimezone(sa_timezone)
+        attended_hours = (now_duration - check_in_time).total_seconds() / 3600
 
         if early_check_out:
             attendance_record["check_out"] = attendance_date.replace(hour = now.hour, minute = now.minute)
