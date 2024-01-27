@@ -1,5 +1,5 @@
 from bson import ObjectId
-from datetime import datetime
+from datetime import datetime, timezone
 from app.config.db import attendance_collection as collection
 from dateutil import parser
 
@@ -10,7 +10,7 @@ async def create_attendance_record(user_id):
 
     try:
 
-        attendance_date = parser.isoparse(datetime.today().strftime("%Y-%m-%d"))
+        attendance_date = parser.isoparse(datetime.today(timezone("Asia/Riyadh")).strftime("%Y-%m-%d"))
 
         existed_attendance_record = collection.find_one({"user_id": user_id, "attendance_date": attendance_date})
 
@@ -44,7 +44,7 @@ async def create_attendance_record(user_id):
 async def check_in_service(user_id, reason):
 
     try:
-        attendance_date = parser.isoparse(datetime.today().strftime("%Y-%m-%d"))
+        attendance_date = parser.isoparse(datetime.today(timezone("Asia/Riyadh")).strftime("%Y-%m-%d"))
         attendance_record =  collection.find_one({"user_id": user_id, "attendance_date": attendance_date})
 
         if not attendance_record:
@@ -59,12 +59,12 @@ async def check_in_service(user_id, reason):
 
         #For testing purposes
 
-        test_time = datetime(year = 2024, month = 1, day = 26, hour = 7, minute = 25)
-        now = test_time
+        #test_time = datetime(year = 2024, month = 1, day = 26, hour = 7, minute = 25)
+        #now = test_time
 
     #_______________________________________________________________________________
         
-        #now = datetime.utcnow()
+        now = datetime.now(timezone("Asia/Riyadh"))
         late_check_in = (now.hour >= 8 and now.minute >= 30) and (now.hour < 16)
         normal_check_in = (now.hour == 7 and now.minute >= 0 and now.second >= 0) or (now.hour == 8 and now.minute <= 29 and now.second <= 59)
 
@@ -99,7 +99,7 @@ async def check_in_service(user_id, reason):
 async def check_out_service(user_id, reason):
 
     try:
-        attendance_date = parser.isoparse(datetime.today().strftime("%Y-%m-%d"))
+        attendance_date = parser.isoparse(datetime.today(timezone("Asia/Riyadh")).strftime("%Y-%m-%d"))
         attendance_record =  collection.find_one({"user_id": user_id, "attendance_date": attendance_date})
 
         if not attendance_record:
@@ -116,13 +116,13 @@ async def check_out_service(user_id, reason):
 
         #For testing purposes
 
-        test_time = datetime(year = 2024, month = 1, day = 26, hour = 15, minute = 5)
-        now = test_time
+        #test_time = datetime(year = 2024, month = 1, day = 26, hour = 15, minute = 5)
+        #now = test_time
         
     #_______________________________________________________________________________
 
 
-        #now = datetime.utcnow()
+        now = datetime.now(timezone("Asia/Riyadh"))
         early_check_out = (now.hour >= 7 and now.hour < 15)
         normal_check_out = (now.hour >= 15 and now.hour <= 16 and now.minute <= 5)
 
